@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>True Deathrate</title>
+	<style>
+	*, *:after, *:before {
+		box-sizing: border-box;
+	}
+	body {background: linear-gradient(to right, rgba(153,0,0,0.3), rgba(51,0,0,0.3));
+		font-family: Tahoma, Geneva, sans-serif;
+		margin: 0;
+		position: relative;
+	}
+	main {
+		margin: 0 auto 3vmin auto;
+		max-width: 90%;
+	}
+	section {
+		position: relative;
+	}
+	section img {
+		margin: auto;
+		max-width: 100%;
+		left: 0;
+		opacity: 0.15;
+		position: absolute;
+		right: 0;
+		top: 0;
+		z-index: -1;
+	}
+	h1 {
+		color: #333;
+		font-size: 19vmin;
+		margin: 0;
+		padding: 3vmin 1rem;
+		text-align: center;
+	}
+	h2 {
+		color: #333;
+		font-size: 5vmin;
+		margin: 0;
+		padding: 0;
+		text-align: center;
+		text-transform: uppercase;
+	}
+	h3 {
+		color: #333;
+		font-size: 3vmin;
+		margin: 0;
+		padding: 3vmin 1rem;
+		text-align: center;
+	}
+	p {
+		color: #333;
+		font-size: 2vmin;
+		line-height: 100%;
+		margin: 0;
+		padding: 1vmin;
+		text-align: center;
+	}
+	table {
+		background: rgba(102,0,0,0.05);
+		border: 1px solid #333;
+		border-collapse: collapse;
+		margin: 0 auto;
+		width: 90%;
+	}
+	td {
+		border-bottom: 1px solid #333;
+		color: #333;
+		font-size: 5vmin;
+		padding: 5px;
+		text-align: right;
+		vertical-align: middle;
+	}
+	td:nth-child(2)  {
+		border-left: 1px solid #333;
+	}
+	tr:nth-child(even) td {border-spacing: 0;
+		padding: 0 5px 4px 0;
+	}
+	footer {
+		color: #666;
+		padding: 1%;
+		text-align: center;
+	}
+	</style>
+</head>
+<body>
+	<main>
+		<section>
+			<h1><%= ((Number(stats[stats.length-1].deaths)/(Number(stats[stats.length-1].deaths)+Number(stats[stats.length-1].recovered)))*100).toFixed(2) %>%</h1>
+			<h2>COVID-19 mortality rate</h2>
+			<p>(Mortality is deaths, divided by recovered and deaths)</p>
+			<h3>United States <%= stats[stats.length-1].date %></h3>
+			<img alt="" src="data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8' standalone='no'%3F%3E%3C!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'%3E%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' version='1.1' width='520' height='520'%3E%3Cdefs%3E%3Cpath d='M 2.8117,-1.046 A 3 3 0 0 1 .5,2.958 V 4.5119 A 10.5 10.5 0 0 1 2,25.3078 V 25.8661 A 15 15 0 0 0 14.7975,8.5433 15 15 0 0 0 23.4007,-11.201 L 22.9172,-10.9218 A 10.5 10.5 0 0 1 4.1574,-1.8229 z M 6.2265,7.825 A 10 10 0 0 1 -6.2265,7.825 9.5 9.5 0 0 0 -8.4021,10.5667 13.5 13.5 0 0 0 8.4021,10.5667 10 10 0 0 0 6.2265,7.825 z' id='p' transform='scale(10,-10) translate(26,-26)'/%3E%3C/defs%3E%3Cuse xlink:href='%23p' /%3E%3Cuse xlink:href='%23p' transform='rotate(120, 260, 260)' /%3E%3Cuse xlink:href='%23p' transform='rotate(240, 260, 260)' /%3E%3C/svg%3E%0A"/>
+		</section>
+		<table>
+			<tr>
+				<td>Detected: </td>
+				<td><%= stats[stats.length-1].detected %></td>
+			</tr>
+			<tr>
+				<td colspan="2">-</td>
+			</tr>
+			<tr>
+				<td>Recovered: </td>
+				<td><%= stats[stats.length-1].recovered %></td>
+			</tr>
+			<tr>
+				<td colspan="2">=</td>
+			</tr>
+			<tr>
+				<td>Unknown Outcomes: </td>
+				<td><%= Number(stats[stats.length-1].detected)-Number(stats[stats.length-1].recovered) %></td>
+			</tr>
+			<tr>
+				<td colspan="2">x</td>
+			</tr>
+			<tr>
+				<td>Mortality: </td>
+				<td><%= stats[stats.length-1].mortality %></td>
+			</tr>
+			<tr>
+				<td colspan="2">=</td>
+			</tr>
+			<tr>
+				<td>Expected Deaths: </td>
+				<td><%= ((Number(stats[stats.length-1].detected)-Number(stats[stats.length-1].recovered))*Number(stats[stats.length-1].mortality)).toFixed(0) %></td>
+			</tr>
+		</table>
+	</main>
+	<footer>v1.00 emeline 2020</footer>
+</body>
+</html>
